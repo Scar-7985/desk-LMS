@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const QuizGame = () => {
 
-    const navigate = useNavigate();
     const [quizData, setQuizData] = useState([]);
     const [questNumber, setQuestNumber] = useState(0);
     const [answers, setAnswers] = useState([]);
@@ -25,6 +24,7 @@ const QuizGame = () => {
 
                 const initialAnswers = response.data.map(() => null);
                 setAnswers(initialAnswers);
+                window.localStorage.setItem("canNavigateBack:", false)
             } catch (error) {
                 console.error('Error fetching quiz data:', error);
                 alert('Failed to fetch quiz data. Please try again later.');
@@ -103,6 +103,7 @@ const QuizGame = () => {
 
         setResult({ correctCount, totalQuestions, score });
         setQuizSubmitted(true);
+        window.localStorage.removeItem("canNavigateBack:")
     };
 
     const formatElapsedTime = (time) => {
