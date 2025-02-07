@@ -32,18 +32,19 @@ const MyCourses = () => {
   }, [])
 
   return (
-    <div className="main-content px-2 mt-2">
-      <div class="page-header">
-        <h3 class="header-title text-muted">My Courses</h3>
+    <div className="main-content px-3 bg-white">
+      <div className="page-header mt-3 px-2">
+        <h2 className="header-title py-4 text-center" style={{ letterSpacing: '0.8px' }}>---- My Courses ----</h2>
       </div>
-      <div className="row">
+
+      <div className="row px-2 m-t-10">
         {
           courseData ? (
             courseData.length > 0 ?
               (
-                purchasedCourses.map((item) => {
+                purchasedCourses.map((item, index) => {
                   return (
-                    <div class="col-md-3">
+                    <div className="col-md-3" key={index}>
                       <Card
                         image={`https://wealthsaga.store/new/app/upload/course_img/${item.img}`}
                         title={item.program_name.length > 20 ? item.program_name.substring(0, 20) + ('...') : item.program_name}
@@ -59,7 +60,7 @@ const MyCourses = () => {
               ) : (
                 [0, 1, 2, 3].map((index) => {
                   return (
-                    <div class="col-md-3">
+                    <div className="col-md-3" key={index}>
                       <Card
                         showSkeleton={true}
                       />

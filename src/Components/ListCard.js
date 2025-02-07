@@ -6,7 +6,7 @@ const ListCard = ({ image, title, date, desc, aPrice, oPrice, goToLink, showSkel
 
     return (
 
-        <div className="card w-100">
+        <Link to={goToLink} className="card w-100">
             <div className="card-body">
                 <div className="row">
                     <div className="col-md-3" style={{ height: '200px' }}>
@@ -40,9 +40,9 @@ const ListCard = ({ image, title, date, desc, aPrice, oPrice, goToLink, showSkel
                                 {showSkeleton ? (
                                     <Skeleton width={120} height={40} />
                                 ) : (
-                                    <Link to={goToLink} className="btn btn-success btn-tone  px-3">
+                                    <button className="btn btn-success btn-tone px-3">
                                         <span className="font-weight-semibold">Open Course</span>
-                                    </Link>
+                                    </button>
                                 )
                                 }
                             </div>
@@ -51,7 +51,7 @@ const ListCard = ({ image, title, date, desc, aPrice, oPrice, goToLink, showSkel
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
 
     )
 }

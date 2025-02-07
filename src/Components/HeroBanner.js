@@ -45,7 +45,7 @@ const HeroBanner = () => {
                                             className="d-block w-100"
                                             src={`${SITE_URL}new/app/upload/banner/${item.banner_image}`}
                                             alt={`${index} slide`}
-                                            style={{ maxHeight: '500px' }}
+                                            style={{ maxHeight: '85vh' }}
                                         />
                                     </div>
                                 )

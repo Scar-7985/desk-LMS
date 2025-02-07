@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 
-const Card = ({ image, title, desc, date, aPrice, oPrice, goToLink, showSkeleton = false }) => {
+const Card = ({ image, title, desc, date, aPrice, oPrice, goToLink, onClick, showSkeleton = false }) => {
     return (
-        <div className="card">
+        <Link to={goToLink} className="card" onClick={onClick}>
             {showSkeleton ?
                 (
                     <Skeleton height={180} />
@@ -44,14 +44,14 @@ const Card = ({ image, title, desc, date, aPrice, oPrice, goToLink, showSkeleton
                     {showSkeleton ? (
                         <Skeleton width={80} height={30} />
                     ) : (
-                        <Link to={goToLink} className="btn btn-success btn-tone  px-3">
+                        <button className="btn btn-success btn-tone  px-3">
                             <span className="font-weight-semibold">Open Course</span>
-                        </Link>
+                        </button>
                     )
                     }
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 

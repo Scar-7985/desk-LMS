@@ -2,7 +2,7 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { Link } from 'react-router-dom'
 
-const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name, program_desc, videoList, pdfList, goToQuiz, showSkeleton = false }) => {
+const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name, program_desc, videoList, pdfList, goToQuiz, status, goToWatch, goToBuy, showSkeleton = false }) => {
     return (
         <div className="main-content p-2">
 
@@ -79,8 +79,20 @@ const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name
                                             </>
                                         ) : (
                                             <>
-                                                <Link to={'#'} className='btn btn-success'>Buy Now</Link>
-                                                <Link to={goToQuiz} className='btn btn-secondary mt-2'>Play Quiz</Link>
+                                                {
+                                                    status === 0 ? (
+                                                        <>
+                                                            <button onClick={goToBuy} className='btn btn-success'>Buy Now</button>
+                                                            {/* <Link to={goToQuiz} className='btn btn-secondary mt-2'>Play Quiz</Link> */}
+                                                        </>
+
+                                                    ) : (
+                                                        <>
+                                                            <button onClick={goToWatch} className='btn btn-success'>Watch Now</button>
+                                                            <Link to={goToQuiz} className='btn btn-secondary mt-2'>Play Quiz</Link>
+                                                        </>
+                                                    )
+                                                }
                                             </>
                                         )
                                 }

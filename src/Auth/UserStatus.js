@@ -42,12 +42,6 @@ const UserStatus = () => {
         }
         // ================== If user has not yet updated his details ================== //
 
-        // ================== Block Navigations Quiz Page ================== //
-
-        if (isAuthenticated && (window.localStorage.getItem("canNavigateBack:") === "false")) {
-            navigate('/quiz');
-        }
-        // ================== Block Navigations Quiz Page ================== //
     }, [location.pathname]);
 
     return null;

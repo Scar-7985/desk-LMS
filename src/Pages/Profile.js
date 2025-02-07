@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser, faBell, faTruck, faReceipt, faComment, faCommentDots } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
+
     const navigate = useNavigate();
     const [showLogOut, setShowLogOut] = useState(false);
 
@@ -17,7 +18,7 @@ const Profile = () => {
             window.localStorage.removeItem("user_email");
             navigate("/");
             window.location.reload();
-        }, 2000);
+        }, 1000);
     };
 
     const profileData = [
@@ -32,8 +33,11 @@ const Profile = () => {
 
     return (
         <div className="px-2">
-            <div className="main-content mt-5">
-                <div className="row m-t-20">
+            <div className="main-content px-3">
+                <div className="page-header mt-3 px-2">
+                    <h2 className="header-title pt-5 text-center" style={{ letterSpacing: '0.8px' }}>---- Account Settings ----</h2>
+                </div>
+                <div className="row m-t-40">
                     {profileData.map((item, index) => (
                         <div
                             className="col-sm-12 col-md-4 col-lg-3 "

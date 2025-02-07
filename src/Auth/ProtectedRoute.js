@@ -4,7 +4,7 @@ import { isAuthenticated } from './Define';
 
 const ProtectedRoutes = () => {
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoutes;

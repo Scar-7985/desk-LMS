@@ -44,9 +44,12 @@ const CourseDetail = () => {
   }
 
   const playVideo = (vid) => {
-    navigate("/video", { state: { vidId: vid } });
+    navigate("/video", { state: { getVideoId: vid } });
   }
 
+  const goToBuy = (id) => {
+    navigate('/checkout')
+  }
 
 
   return (
@@ -63,6 +66,9 @@ const CourseDetail = () => {
             update_on={filteredCourse.update_on}
             program_name={filteredCourse.program_name}
             program_desc={filteredCourse.program_desc}
+            status={filteredCourse.status}
+            goToBuy={() => goToBuy(filteredCourse.id)}
+            goToWatch={() => playVideo(videoLink)}
             videoList={
               filteredVideo.length > 0 ?
                 (
@@ -85,15 +91,15 @@ const CourseDetail = () => {
             pdfList={
               [0, 1, 2, 3].map((index) => {
                 return (
-                  <div class="card" key={index}>
-                    <div class="card-body py-3">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
+                  <div className="card" key={index}>
+                    <div className="card-body py-3">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
                           <FontAwesomeIcon className='text-danger' icon={faFilePdf} style={{ fontSize: '26px' }} />
-                          <span class="ml-3 text-gray font-weight-semibold">Web Dev Intro</span>
+                          <span className="ml-3 text-gray font-weight-semibold">Web Dev Intro</span>
                         </div>
-                        <div class="">
-                          <button class="btn btn-primary btn-tone btn-sm font-weight-semibold" onClick={goToPDF}>
+                        <div className="">
+                          <button className="btn btn-primary btn-tone btn-sm font-weight-semibold" onClick={goToPDF}>
                             View
                           </button>
                         </div>

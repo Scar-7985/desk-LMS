@@ -7,7 +7,6 @@ import ProtectedRoute from './Auth/ProtectedRoute';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
-import Sidebar from './Components/Sidebar';
 import ScrollToTop from './Components/ScrollToTop'
 import UserStatus from './Auth/UserStatus'
 import Profile from './Pages/Profile';
@@ -33,32 +32,21 @@ import MyOrders from './Pages/MyOrders';
 const App = () => {
 
   const location = useLocation();
-  const [showSidebar, setShowSidebar] = useState(true);
-  const showHeaderSidebar = location.pathname !== '/quize';
+  const showHeader = location.pathname !== '/quiz' && location.pathname !== '/login';
 
-  const handleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
 
   return (
     <div>
 
-      {/* {
-        showHeaderSidebar &&
-        <>
-          <Navbar showSidebar={showSidebar} handleSidebar={handleSidebar} />
-          <Sidebar showSidebar={showSidebar} handleSidebar={handleSidebar} />
-        </>
-      } */}
+      {
+        showHeader && <Navbar />
+      }
 
-      <Navbar showSidebar={showSidebar} handleSidebar={handleSidebar} />
-      <Sidebar showSidebar={showSidebar} handleSidebar={handleSidebar} />
       <div
         style={{
           backgroundColor: '#F9FBFD',
           transition: 'all 0.3s',
-          paddingTop: showHeaderSidebar ? '70px' : '0',
-          paddingLeft: showHeaderSidebar ? (showSidebar ? '240px' : '80px') : '0',
+          paddingTop: showHeader ? '70px' : '0',
         }}>
         <ScrollToTop />
         <ToastContainer
@@ -92,15 +80,15 @@ const App = () => {
             <Route path='/invoice-view' element={<InvoiceView />} />
             <Route path='/checkout' element={<Checkout />} />
             <Route path='/video' element={<VideoPlayer />} />
-            <Route path='/quiz' element={<Quiz />} />
-            <Route path='/quiz-details' element={<QuizDetails />} />
-            <Route path='/quiz-type' element={<QuizType />} />
-            <Route path='/quiz-category' element={<QuizCategory />} />
             <Route path='/ask-doubts' element={<Doubts />} />
             <Route path='/notification' element={<Notification />} />
             <Route path='/my-courses' element={<MyCourses />} />
             <Route path='/my-orders' element={<MyOrders />} />
+            <Route path='/quiz-category' element={<QuizCategory />} />
+            <Route path='/quiz-type' element={<QuizType />} />
+            <Route path='/quiz' element={<Quiz />} />
             <Route path='/quiz_type/:quizType' element={<QuizType />} />
+            {/* <Route path='/quiz-details' element={<QuizDetails />} /> */}
             <Route path='/quiz_details/:quizId' element={<QuizDetails />} />
             <Route path='/pdf-view' element={<PDFView />} />
           </Route>

@@ -18,12 +18,12 @@ const CourseCategories = () => {
 
 
   return (
-    <>
-      <div className="page-header d-flex px-2 py-2">
-        <h4 className="header-title text-muted">Courses</h4>
+    <div className="main-content px-3 bg-white">
+      <div className="page-header mt-3 px-2">
+        <h2 className="header-title py-4 text-center" style={{ letterSpacing: '0.8px' }}>---- Courses ----</h2>
       </div>
 
-      <div className="row px-2">
+      <div className="row px-2 m-t-10">
 
         {
 
@@ -32,7 +32,8 @@ const CourseCategories = () => {
               return (
                 <div className="col-sm-12 col-lg-6 col-xl-3 "
                   key={item.id}>
-                  <div
+                  <Link
+                    to={`/course_type/${item.ser_title}`}
                     className="card border"
                     style={{ textDecoration: 'none' }}>
                     <img className="card-img-top" src={`${SITE_URL}new/app/upload/category_img/${item.image}`} alt="" />
@@ -43,10 +44,10 @@ const CourseCategories = () => {
                         <p className="m-b-0 text-muted font-weight-semibold font-size-15 pt-0 mt-0">{item.update_on}</p>
                       </div>
                     </div>
-                    <Link to={`/course_type/${item.ser_title}`} className="btn btn-warning btn-tone w-100">
+                    <button className="btn btn-warning btn-tone w-100">
                       Explore Courses
-                    </Link>
-                  </div>
+                    </button>
+                  </Link>
                 </div>
               )
             })
@@ -80,7 +81,7 @@ const CourseCategories = () => {
 
 
       </div>
-    </>
+    </div>
 
   );
 };

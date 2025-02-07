@@ -29,16 +29,17 @@ const Login = () => {
         })
             .then(response => {
 
+
                 if (response.data.status === 101) {
                     toast.error(response.data.msg);
                     setIsSubmitting(false);
                 }
                 else if (response.data.status === 102) {
+                    document.querySelector("#otpBtn").disabled = true;
                     toast.success(response.data.msg)
                     setOtpSent(true);
                     setReadOnly(true)
                     setIsSubmitting(false);
-
                     let timer = 30;
                     const timerFunc = setInterval(() => {
                         if (timer > 0) {
@@ -80,7 +81,7 @@ const Login = () => {
                             navigate('/update-profile?backBtn=false');
                         }
                         window.location.reload();
-                    }, 1500);
+                    }, 1000);
 
                 }
 
@@ -92,6 +93,7 @@ const Login = () => {
     };
 
     const handleOtpChange = (e, index) => {
+        document.getElementById("otpBtn").disabled = false;
         const value = e.target.value.slice(-1);
         const otpArray = formData.otp ? [...formData.otp] : ["", "", "", ""];
         otpArray[index] = value;
@@ -118,6 +120,7 @@ const Login = () => {
     const resendOtp = () => {
         setShowResend(false);
         setOtpSent(false);
+        document.getElementById("otpBtn").disabled = false;
         document.querySelector('#otpBtn').click();
     };
 
@@ -183,9 +186,8 @@ const Login = () => {
                                                         type="submit"
                                                         className="btn btn-primary btn-block"
                                                         style={{ height: '40px' }}
-                                                        disabled={isSubmitting}
                                                     >
-                                                        {isSubmitting ? 'Submitting...' : (otpSent ? 'Submit' : 'Continue')}
+                                                        {otpSent ? "Submit" : "Continue"}
                                                     </button>
                                                 </div>
                                                 <div className="d-flex justify-content-between align-items-center mt-3">
@@ -194,16 +196,19 @@ const Login = () => {
                                                     }
                                                     {ShowResend &&
                                                         <div
-                                                            className="p-0"
-                                                            style={{ cursor: 'pointer', fontSize: '14px', fontWeight: '500', color: '#FF4C6F' }}
+                                                            className="text-danger btn btn-sm btn-hover"
+                                                            style={{ cursor: 'pointer', fontSize: '12px', fontWeight: '500', color: '#FF4C6F' }}
                                                             onClick={resendOtp}
                                                         >
-                                                            Resend OTP?
+                                                            Resend OTP ?
                                                         </div>
                                                     }
                                                 </div>
 
                                             </form>
+                                            {
+                                                !otpSent && <button className='btn btn-danger btn-tone w-100' onClick={() => navigate('/')}>Leave</button>
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { CourseContext } from '../context/CourseContext';
 import { SITE_URL } from '../Auth/Define';
 
 const VideoPlayer = () => {
 
+  const location = useLocation();
   const { videoData } = useContext(CourseContext);
-  const { getVideoId } = useParams();
+  const { getVideoId } = location.state;
   const [currentVideoId, setCurrentVideoId] = useState(null);
 
 
@@ -127,7 +128,7 @@ const VideoPlayer = () => {
               </div>
 
               <div className="col-4">
-                <div class="row px-4">
+                <div className="row px-4">
                   {
 
                     relatedVideos.map((item, i) => {

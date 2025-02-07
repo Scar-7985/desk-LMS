@@ -1,14 +1,16 @@
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const VideoCard = ({ image, title, update_on, goToLink }) => {
   return (
 
-    <div class="card">
+    <div
+      onClick={goToLink}
+      className="card"
+      style={{ cursor: 'pointer' }}>
       <div className='relative'>
-        <img class="card-img-top" src={image} style={{ height: '240px' }} alt="" />
+        <img className="card-img-top" src={image} style={{ height: '240px' }} alt="" />
 
         <div className='absolute'
           style={{
@@ -21,14 +23,14 @@ const VideoCard = ({ image, title, update_on, goToLink }) => {
           </span>
         </div>
       </div>
-      <div class="card-body">
-        <h4 class="m-t-10">{title}</h4>
-        <p class="m-b-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, ratione.</p>
-        <div class="d-flex align-items-center justify-content-between">
-          <p class="m-b-0 text-dark font-weight-semibold font-size-15">Last Updated |
+      <div className="card-body">
+        <h4 className="m-t-10">{title}</h4>
+        <p className="m-b-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, ratione.</p>
+        <div className="d-flex align-items-center justify-content-between">
+          <p className="m-b-0 text-dark font-weight-semibold font-size-15">Last Updated |
             <span className='text-success' style={{ fontSize: '12px' }}> {update_on}</span>
           </p>
-          <button class="btn btn-secondary btn-tone" onClick={goToLink}>
+          <button className="btn btn-secondary btn-tone">
             Play Video
           </button>
         </div>

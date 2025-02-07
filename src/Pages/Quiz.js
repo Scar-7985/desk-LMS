@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const QuizGame = () => {
 
@@ -14,6 +14,22 @@ const QuizGame = () => {
     const [timeCompleted, setTimeCompleted] = useState(0);
     const [showModal, setShowModal] = useState(false);
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.return = '';
+            return '';
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+
+    }, [navigate]);
 
 
     useEffect(() => {
@@ -24,7 +40,6 @@ const QuizGame = () => {
 
                 const initialAnswers = response.data.map(() => null);
                 setAnswers(initialAnswers);
-                window.localStorage.setItem("canNavigateBack:", false)
             } catch (error) {
                 console.error('Error fetching quiz data:', error);
                 alert('Failed to fetch quiz data. Please try again later.');
@@ -32,10 +47,6 @@ const QuizGame = () => {
         };
 
         fetchQuestions();
-
-        // ============================================ //
-
-
 
     }, []);
 
@@ -103,7 +114,6 @@ const QuizGame = () => {
 
         setResult({ correctCount, totalQuestions, score });
         setQuizSubmitted(true);
-        window.localStorage.removeItem("canNavigateBack:")
     };
 
     const formatElapsedTime = (time) => {
@@ -216,18 +226,18 @@ const QuizGame = () => {
                 showModal &&
                 <div>
                     <div className="modal-backdrop fade show" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
-                    <div class="modal fade show" id="exampleModalCenter" style={{ display: 'block' }}>
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content text-center">
-                                <div class="modal-header justify-content-center py-2">
-                                    <h3 class="modal-title" id="exampleModalCenterTitle">Submit Quiz</h3>
+                    <div className="modal fade show" id="exampleModalCenter" style={{ display: 'block' }}>
+                        <div className="modal-dialog modal-dialog-centered">
+                            <div className="modal-content text-center">
+                                <div className="modal-header justify-content-center py-2">
+                                    <h3 className="modal-title" id="exampleModalCenterTitle">Submit Quiz</h3>
                                 </div>
-                                <div class="modal-body" style={{ fontSize: '16px' }}>
+                                <div className="modal-body" style={{ fontSize: '16px' }}>
                                     Are you sure you want to Submit ?
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal" onClick={() => setShowModal(false)}>Cancel</button>
-                                    <button type="button" class="btn btn-primary" onClick={() => { handleSubmit(); setShowModal(false) }}>Okay</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-default" data-dismiss="modal" onClick={() => setShowModal(false)}>Cancel</button>
+                                    <button type="button" className="btn btn-primary" onClick={() => { handleSubmit(); setShowModal(false) }}>Okay</button>
                                 </div>
                             </div>
                         </div>
