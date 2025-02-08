@@ -61,10 +61,10 @@ const Navbar = () => {
         <div className="header">
           <div
             className="logo logo-dark p-0"
-            style={{ width: '240px', display: 'grid', placeItems: 'center', overflow: 'hidden' }}
+            style={{ width: '160px', display: 'grid', placeItems: 'center', overflow: 'hidden' }}
           >
             <Link to={'/'}>
-              <img src={`/assets/images/logo/brand-full.png`} style={{ width: '240px', height: '70px' }} alt="Logo" />
+              <img src={`/assets/images/logo/logo.jpg`} style={{ width: '100px' }} alt="Logo" />
             </Link>
           </div>
 
@@ -92,7 +92,7 @@ const Navbar = () => {
             {/* Search Bar */}
             <ul className="nav-right">
 
-              <li className="toggle-menu" onClick={() => setShowSearch(true)}>
+              <li className="toggle-menu" onClick={(isAuthenticated && window.localStorage.getItem("user_name") === "null") ? null : () => setShowSearch(true)}>
                 <i className="anticon anticon-search" style={{ fontSize: '20px' }}></i>
               </li>
 
@@ -105,10 +105,10 @@ const Navbar = () => {
                       <div className="avatar avatar-image m-h-10 m-r-15">
                         {/* Profile Pic */}
                         {
-                              isAuthenticated
-                                ? <img src={`${SITE_URL}new/app/upload/profile_pic/${profilePic}`} alt="" />
-                                : <img src={'/assets/images/avatars/avatar.png'} alt="" />
-                            }
+                          isAuthenticated
+                            ? <img src={`${SITE_URL}new/app/upload/profile_pic/${profilePic}`} alt="" />
+                            : <img src={'/assets/images/avatars/avatar.png'} alt="" />
+                        }
                       </div>
                     </div>
 
@@ -120,7 +120,7 @@ const Navbar = () => {
                           </div>
                           <div className="m-l-10">
                             <p className="m-b-0 text-dark font-weight-semibold">
-                              {window.localStorage.getItem("user_name")}
+                              {(window.localStorage.getItem("user_name") === "null") ? (window.localStorage.getItem("user_phone")) : window.localStorage.getItem("user_name")}
                             </p>
                             <p className="m-b-0 opacity-07">{window.localStorage.getItem("login_id")}</p>
                           </div>

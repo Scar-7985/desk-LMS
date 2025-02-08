@@ -96,7 +96,7 @@ const UpdateProfile = () => {
 
             if (response.data.status === 101) {
                 toast.error(response.data.msg);
-                console.log(response);
+                // console.log(response);
 
             } else {
                 toast.success(response.data.msg);
@@ -108,7 +108,7 @@ const UpdateProfile = () => {
                     window.location.reload();
                 }, 1000);
             }
-            console.log("Profile changes:", response.data);
+            // console.log("Profile changes:", response.data);
         } catch (error) {
             console.error("Error updating profile:", error);
         }
@@ -144,7 +144,7 @@ const UpdateProfile = () => {
                                         id="imageFile"
                                         onChange={handleImageChange}
                                         name='uimage'
-                                        style={{ backgroundColor: '#F7F7F7', display: 'none' }}
+                                        style={{ display: 'none' }}
                                     />
                                 </div>
                                 <div>

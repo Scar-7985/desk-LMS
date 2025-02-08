@@ -120,7 +120,7 @@ const Login = () => {
     const resendOtp = () => {
         setShowResend(false);
         setOtpSent(false);
-        document.getElementById("otpBtn").disabled = false;
+        document.querySelector('#otpBtn').disabled = false;
         document.querySelector('#otpBtn').click();
     };
 
