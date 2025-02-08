@@ -30,7 +30,7 @@ const CourseDetail = () => {
     if (filteredCourse && filteredVideo.length > 0) {
       setVideoLink(String(filteredVideo[0].id));
     } else {
-      console.error('Video not found or course is unavailable');
+      // console.error('Video not found or course is unavailable');
     }
   }, [filteredCourse, filteredVideo]);
 
@@ -74,7 +74,7 @@ const CourseDetail = () => {
                 (
                   filteredVideo.map((item) => {
                     return (
-                      <div className="col-sm-12 col-xl-6" key={item.id}>
+                      <div className="col-sm-12 col-md-6 col-lg-6" key={item.id}>
                         <VideoCard
                           image={`${SITE_URL}new/app/upload/video_thumb/${item.thumb}`}
                           title={item.title}

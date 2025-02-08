@@ -14,12 +14,12 @@ const ListCard = ({ image, title, date, desc, aPrice, oPrice, goToLink, showSkel
                             (
                                 <Skeleton height={180} />
                             ) : (
-                                <img className="img-fluid h-100" src={image} alt="" />
+                                <img className="img-fluid h-100 w-100" src={image} alt="" />
                             )
                         }
 
                     </div>
-                    <div className="col-md-9 d-flex flex-column justify-content-between">
+                    <div className="col-md-9 d-flex flex-column justify-content-between mt-3 mt-md-0">
 
                         <div>
                             <h4 className="m-b-10">{showSkeleton ? <Skeleton /> : title}</h4>

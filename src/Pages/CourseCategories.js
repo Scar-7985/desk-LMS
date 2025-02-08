@@ -10,6 +10,8 @@ const CourseCategories = () => {
 
   useEffect(() => {
     axios.post(`${SITE_URL}new/app/api/get_category.php`).then(response => {
+      // console.log(response);
+      
       setCourseCategory(response.data);
     }).catch(error => {
       console.log("Could not fetch Course Category => ", error);
@@ -30,7 +32,7 @@ const CourseCategories = () => {
           courseCategory.length > 0 ? (
             courseCategory.map((item) => {
               return (
-                <div className="col-sm-12 col-lg-6 col-xl-3 "
+                <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3"
                   key={item.id}>
                   <Link
                     to={`/course_type/${item.ser_title}`}

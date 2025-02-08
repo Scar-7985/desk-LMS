@@ -97,7 +97,7 @@ const Home = () => {
               courseData.length > 0 ? (
                 courseData.slice(0, 4).map((item, index) => {
                   return (
-                    <div className="col-sm-12 col-lg-6 col-xl-3" key={index}>
+                    <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3" key={index}>
                       <Card
                         image={`${SITE_URL}new/app/upload/course_img/${item.img}`}
                         title={item.program_name}
@@ -113,7 +113,7 @@ const Home = () => {
               ) : (
                 [0, 1, 2, 3].map((index) => {
                   return (
-                    <div className="col-sm-12 col-lg-6 col-xl-3" key={index}>
+                    <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3" key={index}>
                       <Card showSkeleton={true} />
                     </div>
                   )

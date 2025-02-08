@@ -17,7 +17,7 @@ const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name
                                     : <img src={image} alt="imaged" className="card-img-top" style={{ height: '460px', }} />
                             }
                         </div>
-                        <div className="tab-content col-lg-4 d-flex flex-column justify-content-between">
+                        <div className="tab-content col-lg-4 d-flex flex-column justify-content-between mt-4 mt-lg-0">
                             {/* ============================ */}
                             {
                                 showSkeleton
@@ -115,7 +115,7 @@ const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name
             <div className="card">
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-sm-12 col-lg-8">
+                        <div className="col-12 col-lg-8">
                             <div className="page-header px-2">
                                 <h2 className="header-title">{showSkeleton ? <Skeleton width={140} height={36} /> : "Videos"}</h2>
                             </div>
@@ -127,7 +127,7 @@ const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name
                                 ) : videoList}
                             </div>
                         </div>
-                        <div className="col-sm-12 col-lg-4 d-flex flex-column">
+                        <div className="col-12 col-lg-4 d-flex flex-column mt-4 mt-lg-0">
                             <div className="page-header px-2">
                                 <h2 className="header-title">{showSkeleton ? <Skeleton width={100} height={36} /> : "PDF"}</h2>
                             </div>

@@ -27,7 +27,7 @@ const QuizCategory = () => {
           quizCategory.length > 0 ? (
             quizCategory.map((item) => {
               return (
-                <div className="col-sm-12 col-lg-6 col-xl-3"
+                <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3"
                   key={item.id}>
                   <Link
                     to={`/quiz_type/${item.ser_title}`}

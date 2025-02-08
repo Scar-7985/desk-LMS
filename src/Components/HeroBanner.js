@@ -12,6 +12,8 @@ const HeroBanner = () => {
 
     useEffect(() => {
         axios.post(`${SITE_URL}new/app/api/get_banner.php`).then((response) => {
+            // console.log(response.data);
+            
             setBannerData(response.data);
         })
             .catch((error) => {

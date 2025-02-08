@@ -44,7 +44,7 @@ const MyCourses = () => {
               (
                 purchasedCourses.map((item, index) => {
                   return (
-                    <div className="col-md-3" key={index}>
+                    <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3" key={index}>
                       <Card
                         image={`https://wealthsaga.store/new/app/upload/course_img/${item.img}`}
                         title={item.program_name.length > 20 ? item.program_name.substring(0, 20) + ('...') : item.program_name}

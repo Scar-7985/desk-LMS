@@ -10,7 +10,7 @@ const VideoCard = ({ image, title, update_on, goToLink }) => {
       className="card"
       style={{ cursor: 'pointer' }}>
       <div className='relative'>
-        <img className="card-img-top" src={image} style={{ height: '240px' }} alt="" />
+        <img className="card-img-top" src={image} style={{ height: '280px' }} alt="" />
 
         <div className='absolute'
           style={{

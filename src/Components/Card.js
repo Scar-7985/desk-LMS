@@ -12,7 +12,7 @@ const Card = ({ image, title, desc, date, aPrice, oPrice, goToLink, onClick, sho
                     <img
                         className="card-img-top"
                         src={image}
-                        style={{ height: '180px' }}
+                        style={{ height: '240px' }}
                         alt=""
                     />
                 )
