@@ -89,7 +89,7 @@ const DetailPage = ({ image, o_price, a_price, duration, update_on, program_name
                                                     ) : (
                                                         <>
                                                             <button onClick={goToWatch} className='btn btn-success'>Watch Now</button>
-                                                            <Link to={goToQuiz} className='btn btn-secondary mt-2'>Play Quiz</Link>
+                                                            <button onClick={goToQuiz} className='btn btn-secondary mt-2'>Start Quiz</button>
                                                         </>
                                                     )
                                                 }

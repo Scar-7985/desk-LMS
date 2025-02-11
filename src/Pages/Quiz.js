@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { SITE_URL } from '../Auth/Define';
 
 const QuizGame = () => {
 
+    const location = useLocation();
+    const { strtQuizId } = location.state;
     const [quizData, setQuizData] = useState([]);
     const [questNumber, setQuestNumber] = useState(0);
     const [answers, setAnswers] = useState([]);
@@ -16,28 +19,29 @@ const QuizGame = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleBeforeUnload = (e) => {
-            e.preventDefault();
-            e.return = '';
-            return '';
-        };
+    // useEffect(() => {
+    //     const handleBeforeUnload = (e) => {
+    //         e.preventDefault();
+    //         e.return = '';
+    //         return '';
+    //     };
 
-        window.addEventListener("beforeunload", handleBeforeUnload);
+    //     window.addEventListener("beforeunload", handleBeforeUnload);
 
-        return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
+    //     return () => {
+    //         window.removeEventListener("beforeunload", handleBeforeUnload);
+    //     };
 
-    }, [navigate]);
+    // }, [navigate]);
 
 
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
                 const response = await axios.get('https://vikrant.westonik.com/quiz.php');
-                setQuizData(response.data);
+                // console.log(response);
 
+                setQuizData(response.data);
                 const initialAnswers = response.data.map(() => null);
                 setAnswers(initialAnswers);
             } catch (error) {
@@ -49,6 +53,30 @@ const QuizGame = () => {
         fetchQuestions();
 
     }, []);
+
+    // ================ Changed here only ================ //
+
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            axios.post(`${SITE_URL}new/app/api/get_questions.php`, { exam_id: strtQuizId }).then(resp => {
+                console.log("response => ", resp.data);
+
+                // setQuizData(response.data);
+                // const initialAnswers = response.data.map(() => null);
+                // setAnswers(initialAnswers);
+
+            }).catch(error => {
+                console.error('Error fetching quiz data:', error);
+                alert('Failed to fetch quiz data. Please try again later.');
+
+            })
+        };
+
+        fetchQuestions();
+
+    }, []);
+
+    // ================ Changed here only ================ //
 
     useEffect(() => {
         if (timeLeft > 0) {

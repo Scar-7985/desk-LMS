@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { SITE_URL } from '../Auth/Define'
 import Skeleton from 'react-loading-skeleton';
 
 const QuizCategory = () => {
 
+  const navigate = useNavigate();
   const [quizCategory, setQuizCategory] = useState([]);
 
   useEffect(() => {
@@ -15,6 +16,10 @@ const QuizCategory = () => {
       console.log("Coud not fetch Quiz Category => ", error);
     })
   }, [])
+
+  const goQuizType = (Id) => {
+    navigate("/quiz-type", { state: { quizType: Id } })
+  }
 
   return (
     <div className="main-content px-3 bg-white">
@@ -29,8 +34,8 @@ const QuizCategory = () => {
               return (
                 <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3"
                   key={item.id}>
-                  <Link
-                    to={`/quiz_type/${item.ser_title}`}
+                  <div
+                    onClick={() =>goQuizType(item.id)}
                     className="card border"
                     style={{ textDecoration: 'none' }}>
                     <img className="card-img-top" src={`${SITE_URL}new/app/upload/category_img/${item.image}`} alt="" />
@@ -44,7 +49,7 @@ const QuizCategory = () => {
                     <button className="btn btn-warning btn-tone w-100">
                       Explore Courses
                     </button>
-                  </Link>
+                  </div>
                 </div>
               )
             })

@@ -46,13 +46,18 @@ const QuizDetails = () => {
     navigate("/video", { state: { vidId: vid } });
   }
 
+  const goToQuiz = (Id) => {
+    navigate("/quiz-sub-category", { state: { quizId: Id } })
+  }
+  
+
   return (
     <>
 
       {
         filteredCourse ? (
           <DetailPage
-            goToQuiz={"/quiz"}
+            goToQuiz={() => goToQuiz(filteredCourse.id)}
             image={`${SITE_URL}new/app/upload/course_img/${filteredCourse.img}`}
             o_price={filteredCourse.of_price}
             a_price={filteredCourse.ac_price}
@@ -82,15 +87,15 @@ const QuizDetails = () => {
             pdfList={
               [0, 1, 2, 3].map((index) => {
                 return (
-                  <div class="card" key={index}>
-                    <div class="card-body py-3">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
+                  <div className="card" key={index}>
+                    <div className="card-body py-3">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center">
                           <FontAwesomeIcon className='text-danger' icon={faFilePdf} style={{ fontSize: '26px' }} />
-                          <span class="ml-3 text-gray font-weight-semibold">Web Dev Intro</span>
+                          <span className="ml-3 text-gray font-weight-semibold">Web Dev Intro</span>
                         </div>
-                        <div class="">
-                          <button class="btn btn-primary btn-tone btn-sm font-weight-semibold" onClick={goToPDF}>
+                        <div className="">
+                          <button className="btn btn-primary btn-tone btn-sm font-weight-semibold" onClick={goToPDF}>
                             View
                           </button>
                         </div>

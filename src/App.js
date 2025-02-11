@@ -28,6 +28,7 @@ import CourseDetail from './Pages/CourseDetail';
 import LegalTerms from './Pages/LegalTerms';
 import Support from './Pages/Support';
 import MyOrders from './Pages/MyOrders';
+import QuizSubCategory from './Pages/QuizSubCategory';
 
 const App = () => {
 
@@ -85,9 +86,9 @@ const App = () => {
             <Route path='/my-courses' element={<MyCourses />} />
             <Route path='/my-orders' element={<MyOrders />} />
             <Route path='/quiz-category' element={<QuizCategory />} />
+            <Route path='/quiz-sub-category' element={<QuizSubCategory />} />
             <Route path='/quiz-type' element={<QuizType />} />
             <Route path='/quiz' element={<Quiz />} />
-            <Route path='/quiz_type/:quizType' element={<QuizType />} />
             {/* <Route path='/quiz-details' element={<QuizDetails />} /> */}
             <Route path='/quiz_details/:quizId' element={<QuizDetails />} />
             <Route path='/pdf-view' element={<PDFView />} />

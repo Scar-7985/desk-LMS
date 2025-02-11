@@ -51,6 +51,10 @@ const CourseDetail = () => {
     navigate('/checkout')
   }
 
+  const goToQuiz = (Id) => {
+    navigate("/quiz-sub-category", { state: { quizId: Id } })
+  }
+
 
   return (
     <>
@@ -58,7 +62,7 @@ const CourseDetail = () => {
       {
         filteredCourse ? (
           <DetailPage
-            goToQuiz={"/quiz"}
+            goToQuiz={() => goToQuiz(filteredCourse.id)}
             image={`${SITE_URL}new/app/upload/course_img/${filteredCourse.img}`}
             o_price={filteredCourse.of_price}
             a_price={filteredCourse.ac_price}
