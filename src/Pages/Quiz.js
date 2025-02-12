@@ -6,7 +6,8 @@ import { SITE_URL } from '../Auth/Define';
 const QuizGame = () => {
 
     const location = useLocation();
-    const { strtQuizId } = location.state;
+    const params = new URLSearchParams(location.search);
+    const strtQuizId = params.get("quizId");
     const [quizData, setQuizData] = useState([]);
     const [questNumber, setQuestNumber] = useState(0);
     const [answers, setAnswers] = useState([]);
@@ -19,56 +20,17 @@ const QuizGame = () => {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const handleBeforeUnload = (e) => {
-    //         e.preventDefault();
-    //         e.return = '';
-    //         return '';
-    //     };
-
-    //     window.addEventListener("beforeunload", handleBeforeUnload);
-
-    //     return () => {
-    //         window.removeEventListener("beforeunload", handleBeforeUnload);
-    //     };
-
-    // }, [navigate]);
-
-
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const response = await axios.get('https://vikrant.westonik.com/quiz.php');
-                // console.log(response);
-
-                setQuizData(response.data);
-                const initialAnswers = response.data.map(() => null);
-                setAnswers(initialAnswers);
-            } catch (error) {
-                console.error('Error fetching quiz data:', error);
-                alert('Failed to fetch quiz data. Please try again later.');
-            }
-        };
-
-        fetchQuestions();
-
-    }, []);
-
-    // ================ Changed here only ================ //
 
     useEffect(() => {
         const fetchQuestions = async () => {
             axios.post(`${SITE_URL}new/app/api/get_questions.php`, { exam_id: strtQuizId }).then(resp => {
-                console.log("response => ", resp.data);
-
-                // setQuizData(response.data);
-                // const initialAnswers = response.data.map(() => null);
-                // setAnswers(initialAnswers);
+                // console.log("Api resp => ", resp.data.slice(0, 1).map((item) => item));
+                setQuizData(resp.data);
+                const initialAnswers = resp.data.map(() => null);
+                setAnswers(initialAnswers);
 
             }).catch(error => {
-                console.error('Error fetching quiz data:', error);
-                alert('Failed to fetch quiz data. Please try again later.');
-
+                console.log('Error fetching quiz data:', error);
             })
         };
 
@@ -76,7 +38,6 @@ const QuizGame = () => {
 
     }, []);
 
-    // ================ Changed here only ================ //
 
     useEffect(() => {
         if (timeLeft > 0) {
@@ -124,15 +85,18 @@ const QuizGame = () => {
     const handleSubmit = () => {
         const elapsedTime = 10 * 60 - timeLeft;
         setTimeCompleted(elapsedTime);
-        // console.log('Submitted Answers:', answers);
-
         // Check answers and calculate result
+        const optionMapping = {
+            option_a: 'A',
+            option_b: 'B',
+            option_c: 'C',
+            option_d: 'D',
+        };
         let correctCount = 0;
         answers.forEach((answer, index) => {
-            const correctAnswer = quizData[index]?.ans;
-            const selectedAnswer = quizData[index]?.[answer];
-
-            if (selectedAnswer === correctAnswer) {
+            const correctAnswer = quizData[index]?.correct_answer;
+            const mappedAnswer = optionMapping[answer];
+            if (mappedAnswer === correctAnswer) {
                 correctCount++;
             }
         });
@@ -155,44 +119,48 @@ const QuizGame = () => {
     return (
         <>
 
-            <div className='p-2'>
+            <div className=''>
                 {quizData.length > 0 && !quizSubmitted ? (
-                    <div className="bg-white pt-4 px-3 pb-2 rounded shadow border w-100 h-100" style={{ position: 'relative' }}>
-                        <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h3 className='m-0'>Question: {questNumber + 1}</h3>
+                    <div className="bg-white py-2 px-3 rounded shadow border w-100 h-100 py-3" style={{ position: 'relative' }}>
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                            <h3 className='m-0'>Question: {questNumber + 1} <span className='font-size-17 font-weight-semibold'>of </span>{quizData.length}</h3>
                             <h5 className='btn btn-warning' style={{ width: '80px' }}>{formatTime(timeLeft)}</h5>
                         </div>
 
                         {filteredQuestion ? (
-                            <div style={{ height: 'calc(100vh - 234px)' }}>
+                            <div
+                                style={{ minHeight: 'calc(100vh - 186px)' }}
+                            >
                                 <div className="mb-4">
                                     <p
+                                        id='question_holder'
                                         className='p-5 font-size-19'
-                                    >{filteredQuestion.quest}
-                                    </p>
+                                        dangerouslySetInnerHTML={{ __html: filteredQuestion.question_text }}
+                                    />
 
                                 </div>
                                 {/* <img src='assets/images/others/cpu.jpg' width={150} /> */}
-                                <div className="d-flex flex-column gap-2 mb-4 font-size-18">
-                                    {['opt_a', 'opt_b', 'opt_c', 'opt_d'].map((opt, index) => (
-                                        <label
-                                            key={index}
-                                            className="btn btn-secondary btn-tone text-left px-2 py-3"
-                                            style={{ cursor: 'pointer' }}
-                                        >
+                                <div className="row font-size-18">
+                                    {['option_a', 'option_b', 'option_c', 'option_d'].map((opt, index) => (
+                                        <div className='col-6' key={index}>
+                                            <label
+                                                key={index}
+                                                className="btn btn-secondary btn-tone text-left px-2 py-3 w-100 my-2"
+                                                style={{ cursor: 'pointer' }}
+                                            >
 
-                                            <input
-                                                className="radio mr-3"
-                                                type="radio"
-                                                name="Ans"
-                                                value={opt}
-                                                onChange={handleAnswerChange}
-                                                checked={answers[questNumber] === opt}
-                                            />
+                                                <input
+                                                    className="radio mr-3"
+                                                    type="radio"
+                                                    name="Ans"
+                                                    value={opt}
+                                                    onChange={handleAnswerChange}
+                                                    checked={answers[questNumber] === opt}
+                                                />
 
-                                            {filteredQuestion[opt]}
-                                        </label>
-
+                                                <span className='font-size-16 font-weight-semibold' dangerouslySetInnerHTML={{ __html: filteredQuestion[opt] }} />
+                                            </label>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -200,20 +168,18 @@ const QuizGame = () => {
                             <p>No question available</p>
                         )}
 
-                        <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-between align-items-center m-t-50">
                             <button
                                 onClick={prevQuestion}
-                                className={`btn btn-${questNumber === 0 ? 'secondary' : 'info'} btn-tone d-flex align-items-center`}
-                                style={{ height: '40px' }}
+                                className={`btn btn-${questNumber === 0 ? 'secondary' : 'info'} btn-tone btn-lg d-flex align-items-center`}
+
                                 disabled={questNumber === 0 || disableButton}
                             >
                                 <ion-icon name="arrow-back-outline"></ion-icon>
                                 <span className=''>Previous</span>
                             </button>
-
-
                             <button
-                                className="btn btn-success"
+                                className="btn btn-lg btn-success"
                                 onClick={() => setShowModal(true)}
                             >
                                 Submit
@@ -221,8 +187,7 @@ const QuizGame = () => {
 
                             <button
                                 onClick={nextQuestion}
-                                className={`btn btn-${questNumber + 1 === quizData.length ? 'secondary' : 'success'} btn-tone d-flex align-items-center`}
-                                style={{ height: '40px' }}
+                                className={`btn btn-${questNumber + 1 === quizData.length ? 'secondary' : 'success'} btn-tone btn-lg d-flex align-items-center`}
                                 disabled={questNumber + 1 === quizData.length || disableButton}
                             >
                                 <span className=''>Next</span>
@@ -239,7 +204,7 @@ const QuizGame = () => {
                             ({result.score.toFixed(2)}%).
                         </p>
                         <p>Time Taken: {formatElapsedTime(timeCompleted)}</p>
-                        <Link to={'/'} className="btn btn-success shadow">Go To Home</Link>
+                        <button onClick={() => window.close()} className="btn btn-success shadow">Go To Quiz Menu</button>
                     </div>
                 ) : (
                     <div className="text-center py-5">

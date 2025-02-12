@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Skeleton from 'react-loading-skeleton'
 
-const QuizCard = ({ image, title, desc, date, aPrice, oPrice, onClick, showSkeleton = false }) => {
+const QuizCard = ({ image, title, desc, date, onClick, showSkeleton = false }) => {
     return (
         <div className="card" onClick={onClick}>
             {showSkeleton ?

@@ -29379,15 +29379,6 @@ div.is-invalid {
 /* =========================================== */
 /* =========================================== */
 
-.dark-mode {
-    background-color: #223143;
-}
-
-.dark-mode .header {
-    background-color: #223143;
-}
-
-.dark-mode .header .nav-wrap ul li:hover {
-    transition: all 0.3s;
-    color: #fff;
+#question_holder p img {
+    width: 400px;
 }

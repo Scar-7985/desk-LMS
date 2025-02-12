@@ -4,6 +4,7 @@ import { CourseContext } from '../context/CourseContext';
 import axios from 'axios';
 import { SITE_URL } from '../Auth/Define';
 import QuizCard from '../Components/QuizCard';
+import { toast } from 'react-toastify';
 
 const QuizSubCategory = () => {
 
@@ -28,8 +29,23 @@ const QuizSubCategory = () => {
 
 
     const startQuiz = (Id) => {
-        navigate("/quiz", { state: { strtQuizId: Id } });
-    }
+        const url = `/quiz?quizId=${Id}`;
+        const windowFeatures = `toolbar=no,menubar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=${window.screen.width},height=${window.screen.height},top=0,left=0`;
+
+        const newWindow = window.open(url, "_blank", windowFeatures);
+
+        if (newWindow) {
+            const interval = setInterval(() => {
+                if (newWindow.closed) {
+                    clearInterval(interval);
+                    toast.success("Quiz completed successfully!");
+                }
+            }, 1000);
+        }
+    };
+
+
+
 
 
     return (
@@ -47,7 +63,7 @@ const QuizSubCategory = () => {
                                     <div className="col-sm-12 col-md-6 col-lg-4" key={index}>
                                         <QuizCard
                                             onClick={() => startQuiz(item.exam_id)}
-                                            image={`${SITE_URL}new/app/upload/${item.image}`}
+                                            image={`${SITE_URL}new/app/upload/exam_img/${item.image}`}
                                             title={item.exam_name}
                                             desc={item.description}
                                             date={item.date}
